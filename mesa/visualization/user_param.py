@@ -54,7 +54,14 @@ class Slider(UserParam):
         self.step = step
 
         # Validate option type to make sure values are supplied properly
-        valid = not (self.value is None or self.min is None or self.max is None)
+        valid = (
+            self.value is not None
+            and self.min is not None 
+            and self.max is not None
+            and self.min < self.max
+            and self.min <= self.value <= self.max
+            and self.step > 0
+        )
         self.maybe_raise_error("slider", valid)
 
         if dtype is None:
